@@ -25,25 +25,38 @@ def labirinth_to_graph(labirinth):
     return graph
 
 
-def bfs_paths(graph, start, goal):
-    queue = [(start, [start])]
-    while queue:
-        (vertex, path) = queue.pop(0)
-        for next in graph[vertex] - set(path):
-            if next == goal:
-                return path + [next]
-            else:
-                queue.append((next, path + [next]))
+def bfs(graph, start, goal):
+    queue = []
+    queue.append(start)
+    used = {v: False for v in graph}
+    d = {v: 0 for v in graph}
+    p = {v: 0 for v in graph}
+    used[start] = True
+    p[start] = -1
+    while len(queue) != 0:
+        v = queue.pop(0)
+        for to in graph[v]:
+            if not used[to]:
+                used[to] = True
+                queue.append(to)
+                d[to] = d[v] + 1
+                p[to] = v
+    with open('out.txt', 'w') as f:
+        if (not used[goal]):
+            f.write("N")
+        else:
+            f.write("Y\n")
+            path = []
+            v = goal
+            while v != -1:
+                v = p[v]
+                if v != -1:
+                    path.insert(0, v)
+            for vx, vy in path:
+                f.write(str(vx) + ' ' + str(vy) + '\n')
 
 
 if __name__ == '__main__':
     labirinth, c_start, c_end = read_labirinth()
     graph = labirinth_to_graph(labirinth)
-    result = ''
-    path = bfs_paths(graph, tuple(c_start), tuple(c_end))
-    if path:
-        result = 'Y\n' + '\n'.join([(str(x) + ' ' + str(y)) for x, y in path])
-    else:
-        result = 'N'
-    with open('out.txt', 'w') as f:
-        f.write(result)
+    bfs(graph, tuple(c_start), tuple(c_end))
