@@ -1,5 +1,5 @@
 def read_labirinth():
-    with open('input.txt') as f:
+    with open('in.txt') as f:
         lines = f.readlines()
     rows_count = int(lines[0])
     columns_count = int(lines[1])
@@ -8,8 +8,7 @@ def read_labirinth():
     labirinth = []
     for line in lines[2:rows_count + 2]:
         labirinth.append([int(cell) for cell in line.strip().split()])
-    return labirinth, [int(c) for c in coordinates_start], [int(c) for c in
-                                                            coordinates_end]
+    return labirinth, [int(c) for c in coordinates_start], [int(c) for c in coordinates_end]
 
 
 def labirinth_to_graph(labirinth):
@@ -20,8 +19,7 @@ def labirinth_to_graph(labirinth):
                 graph[(i + 1, j + 1)] = set()
                 neibours = [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]
                 for x, y in neibours:
-                    if (x > 0 and x < len(labirinth)) and (
-                            y > 0 and y < len(labirinth[i])):
+                    if (x > 0 and x < len(labirinth)) and (y > 0 and y < len(labirinth[i])):
                         if labirinth[x][y] == 0:
                             graph[i + 1, j + 1].add((x + 1, y + 1))
     return graph
@@ -47,5 +45,5 @@ if __name__ == '__main__':
         result = 'Y\n' + '\n'.join([(str(x) + ' ' + str(y)) for x, y in path])
     else:
         result = 'N'
-    with open('output.txt', 'w') as f:
+    with open('out.txt', 'w') as f:
         f.write(result)

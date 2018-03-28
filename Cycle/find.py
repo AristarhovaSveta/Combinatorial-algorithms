@@ -4,7 +4,7 @@ cycle = []
 
 
 def read_from_file():
-    with open('input.txt') as f:
+    with open('in.txt') as f:
         lines = [line.strip() for line in f.readlines()]
     vertexes_count = int(lines[0])
     for line in lines[1:]:
@@ -38,5 +38,5 @@ if __name__ == '__main__':
         result = 'N\n' + '\n'.join([str(v) for v in sorted(list(set(cycle)))])
     else:
         result = 'A'
-    with open('output.txt', 'w') as f:
+    with open('out.txt', 'w') as f:
         f.write(result)
