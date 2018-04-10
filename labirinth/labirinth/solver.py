@@ -49,11 +49,10 @@ def bfs(graph, start, goal):
             path = []
             v = goal
             while v != -1:
-                v = p[v]
                 if v != -1:
                     path.insert(0, v)
-            for vx, vy in path:
-                f.write(str(vx) + ' ' + str(vy) + '\n')
+                v = p[v]
+            f.write('\n'.join([str(vx) + ' ' + str(vy) for vx, vy in path]))
 
 
 if __name__ == '__main__':
