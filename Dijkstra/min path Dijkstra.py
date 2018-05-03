@@ -14,7 +14,7 @@ def Dijkstra(matrix, vertex_count, start, end):
     INF = 32767
     dist = [INF] * vertex_count
     prevs = [None] * vertex_count
-    dist[start] = 0
+    dist[start] = 1
     mark = [False] * vertex_count
     for i in range(vertex_count):
         v = -1
@@ -26,8 +26,8 @@ def Dijkstra(matrix, vertex_count, start, end):
         mark[v] = True
         for j in range(len(matrix[v])):
             length = matrix[v][j]
-            if dist[v] + length < dist[j]:
-                dist[j] = dist[v] + length
+            if dist[v] * length < dist[j]:
+                dist[j] = dist[v] * length
                 prevs[j] = v
 
     path = []
